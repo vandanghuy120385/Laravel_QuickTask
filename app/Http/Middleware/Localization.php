@@ -4,9 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
-class CheckAdmin
+class Localization
 {
     /**
      * Handle an incoming request.
@@ -15,12 +16,13 @@ class CheckAdmin
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        $user = auth()->user();
-        if ($user && $user->is_admin) {
-            return $next($request);
+        $lang = Session::get('lang');
+        if (Session::get('lang')) {
+            App::setLocale(Session::get('lang'));
         }
-        abort(401);
+
+        return $next($request);
     }
 }

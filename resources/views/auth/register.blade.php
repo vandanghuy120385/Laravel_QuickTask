@@ -11,7 +11,14 @@
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
-
+            <div>
+                <x-nav-link :href="route('locale',['lang'=>'vi'])" class="float-right">
+                    {{ __('VI') }}
+                </x-nav-link>
+                <x-nav-link :href="route('locale',['lang'=>'en'])" class="float-right">
+                    {{ __('EN') }}
+                </x-nav-link>
+            </div>
             <!-- Name -->
             <div>
                 <x-label for="first_name" :value="__('First Name')" />

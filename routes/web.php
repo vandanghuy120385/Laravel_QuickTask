@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,9 @@ Route::controller(TaskController::class)->group(function () {
 });
 
 Route::resource('/user', UserController::class);
+
+Route::get('language/{lang}', [LanguageController::class, 'changeLang'])->name('locale');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
