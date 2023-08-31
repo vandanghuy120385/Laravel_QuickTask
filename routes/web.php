@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,13 +28,13 @@ Route::controller(TaskController::class)->group(function () {
 
     Route::get('/tasks/{task}', 'show')->name('tasks.show');
 
-    Route::get('/tasks/edit', 'edit')->name('tasks.edit');
+    Route::get('/tasks/{task}/edit', 'edit')->name('tasks.edit');
 
     Route::post('/tasks', 'store')->name('tasks.store');
 
     Route::put('/tasks/{task}', 'update')->name('tasks.update');
 
-    Route::delete('/tasks/{task}', 'destroy')->name('tasks.delete');
+    Route::delete('/tasks/{task}', 'destroy')->name('tasks.destroy');
 });
 
 Route::resource('/user', UserController::class);

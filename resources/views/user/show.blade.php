@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('User List') }}
+            {{ __('User Detail') }}
         </h2>
     </x-slot>
     <div class="py-12">
@@ -49,7 +49,7 @@
                             {{ $task->desc }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $task->is_finished == 0 ? 'No' : 'Yes' }}
+                            {{ $task->is_finished == 0 ? __('NO') : __('YES') }}
                         </td>
                         <td class="px-6 py-4">
                             <button class="mt-4 bg-red-500">
@@ -95,9 +95,10 @@
                             {{ $role->name }}
                         </td>
                         <td class="px-6 py-4">
-                            <button class="mt-4 text-red-500">
+
+                            <a class="mt-4 text-red-500">
                                 {{ __("Edit") }}
-                            </button>
+                            </a>
                         </td>
                         <td class="px-6 py-4">
                             <button class="mt-4 text-red-500">
