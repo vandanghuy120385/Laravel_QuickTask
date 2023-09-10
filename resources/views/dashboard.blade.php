@@ -1,25 +1,7 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
-                    <div class="mt-4">
-                        <x-label for="task" :value="__('Task')" />
-
-                        <x-input id="task" class="block mt-1 w-full" type="text" name="task" required autocomplete="task" />
-
-                    </div>
-                    <x-button class="mt-4">
-                        {{ __('+') }}
-                    </x-button>
-                </div>
-            </div>
-
+    <x-hero-banner small-text="Beat Solo Air" mid-text="Summer Sale" large-text-1="FINE" large-text-2="SMILE" desc="Beats Solo Air" />
+    <div class="products-heading">
+        <h2>Best selling</h2>
+        <p>Speaker</p>
+    </div>
 </x-app-layout>

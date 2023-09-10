@@ -4,7 +4,6 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    require_once '../storage/app/public/data.php';
+    return view('welcome', ['products' => $products, 'banner' => $banner]);
 });
 
 Route::controller(TaskController::class)->group(function () {
