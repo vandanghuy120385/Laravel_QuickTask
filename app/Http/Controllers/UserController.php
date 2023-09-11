@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use PDO;
 
 class UserController extends Controller
 {
@@ -19,7 +23,7 @@ class UserController extends Controller
     public function index()
     {
         return view('user.index', [
-            'users' => User::all(),
+            'users' => User::with('tasks')->get(),
         ]);
     }
 
@@ -30,7 +34,7 @@ class UserController extends Controller
      */
     public function create() // return Create New User form
     {
-        //
+        return view('user.create');
     }
 
     /**
@@ -39,9 +43,27 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $first_name = $validated['first_name'];
+        $last_name = $validated['last_name'];
+        $username = $validated['username'];
+        $email = $validated["email"];
+        $password = bcrypt($validated["password"]);
+        $is_admin = $request->is_admin;
+        $is_active = true;
+        $user = new User();
+        $user->email = $email;
+        $user->password = $password;
+        $user->is_admin = $is_admin;
+        $user->is_active = $is_active;
+        $user->username = $username;
+        $user->first_name =  $first_name;
+        $user->last_name = $last_name;
+        $user->save();
+
+        return redirect()->route('user.index');
     }
 
     /**
@@ -67,7 +89,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('user.edit', compact('user'));
     }
 
     /**
@@ -79,7 +101,12 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        if ($request->has('username')) {
+            $user->username = $request->username;
+            $result = $user->save();
+
+            return redirect()->route('user.index');
+        }
     }
 
     /**
@@ -90,6 +117,10 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+
+        $is_deleted = User::where('id', $user->id)->delete();
+        if ($is_deleted > 0) {
+            return redirect()->route('user.index');
+        }
     }
 }

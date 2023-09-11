@@ -24,6 +24,12 @@
                 </div>
             </div>
 
+            <x-nav-link :href="route('user.index')">
+                {{ __('User') }}
+            </x-nav-link>
+            <x-nav-link :href="route('tasks.index')">
+                {{ __('Task') }}
+            </x-nav-link>
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
